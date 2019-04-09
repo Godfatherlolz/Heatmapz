@@ -1,0 +1,74 @@
+
+
+
+<mat-tab-group>
+  <mat-tab label="Table View">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input matInput [matDatepickerFilter]="myFilter" [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date"  (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table style="width: 100%"  mat-table [dataSource]="dataSource" matSort>
+    
+        <!-- Feature Column -->
+        <ng-container matColumnDef="field.Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Field </th>
+          <td mat-cell *matCellDef="let row">
+              <mat-checkbox color="primary" [checked]="row.checked" (change)="onChange($event,  row)"></mat-checkbox>
+             
+            
+                  {{ row.field.Name }}
+                  <mat-icon *ngIf="row.percentiles[1] < row.percentiles[0]" style="color:red;font-weight: bold;font-size: 150%">trending_down
+                
+                  </mat-icon>
+                  <mat-icon  *ngIf="row.percentiles[1] >= row.percentiles[0]" style="color:green;font-weight: bold;font-size: 150%">trending_up
+                  </mat-icon>
+                </td>
+        </ng-container>
+        <ng-container matColumnDef="field.Description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> What this means ? </th>
+          <td mat-cell *matCellDef="let row" matTooltip="{{row.field.Description}}" >
+              {{row.field.Description | slice:0:100 }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Previous Percentile">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Previous Percentile </th>
+          <td mat-cell *matCellDef="let row"> 
+            
+             <span *ngIf="row.percentiles[0]> high" style="color:green">{{row.percentiles[0] | percent}}</span> 
+             <span *ngIf="row.percentiles[0] > low && row.percentiles[0] < high" style="color:#ffc400
+    
+              ">{{row.percentiles[0] | percent}}</span> 
+             <span *ngIf="row.percentiles[0] < low" style="color:red">{{row.percentiles[0] | percent}}</span> 
+             
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Current Percentile">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Percentile </th>
+          <td mat-cell *matCellDef="let row"> 
+            
+             <span *ngIf="row.percentiles[1] > high" style="color:green">{{row.percentiles[1]| percent}}</span> 
+             <span *ngIf="row.percentiles[1] > low && row.percentiles[1] < high" style="color:#ffc400
+    
+              ">{{row.percentiles[1] | percent}}</span> 
+             <span *ngIf="row.percentiles[1] < low" style="color:red">{{row.percentiles[1] | percent}}</span> 
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100, 600]"></mat-paginator>
+    </div>
+  </mat-tab>
+  <mat-tab label="Chart View"> <app-heatmap-chart [features]="features"></app-heatmap-chart>  </mat-tab>
+
+</mat-tab-group>
+

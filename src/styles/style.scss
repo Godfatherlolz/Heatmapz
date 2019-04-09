@@ -1,0 +1,38 @@
+@import 'variables';
+@import 'material-theme';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+button:focus, a:focus {
+    outline: 0;
+}
+
+mat-icon {
+    vertical-align: middle;
+}
+
+.custom-fade {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.mat-tab-disabled {
+    cursor: not-allowed !important;
+}
+
+.mat-raised-button[disabled] {
+    color: rgb(84, 84, 84) !important;
+    background-color: rgba(#D3D3D3, 0.7) !important;
+    cursor: not-allowed !important;
+}
+
+.container-fluid {
+    max-width: 1280px;
+}

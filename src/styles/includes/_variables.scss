@@ -1,0 +1,19 @@
+@import '~@angular/material/theming';
+
+$app-primary: mat-palette($mat-blue, 700);
+$app-accent:  mat-palette($mat-orange);
+$app-warn:    mat-palette($mat-orange);
+
+$color-grey-light:  #f1f1f1;
+$color-grey-middle: #999;
+$color-primary: mat-color($app-primary);
+$color-accent: mat-color($app-accent);
+/*
+$grid-breakpoints: (
+    xs: 0,
+    sm: 1px,
+    md: 2px,
+    lg: 3px,
+    xl: 1280px
+);
+*/
